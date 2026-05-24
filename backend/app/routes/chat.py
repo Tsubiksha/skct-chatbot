@@ -13,7 +13,12 @@ from backend.database import (
     add_message,
     get_messages
 )
-from backend.app.graph_rag.graph_rag_query_service import graph_rag_query
+from backend.app.graph_sqlite.answer_service import answer_graph_question as _answer_fn
+
+# Shim: wrap sync answer_graph_question as async for compatibility with existing route
+async def graph_rag_query(question: str) -> dict:
+    import asyncio
+    return await asyncio.get_event_loop().run_in_executor(None, _answer_fn, question)
 
 router = APIRouter(tags=["Chat Operations"])
 

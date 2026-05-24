@@ -5,6 +5,7 @@ import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import ChatPage from "./pages/ChatPage";
 import GraphVisualizer from "./pages/GraphVisualizer";
+import GraphRagPage from "./pages/GraphRagPage";
 
 // Protected Route Wrapper to enforce JWT authentication session persistence
 function ProtectedRoute({ children }) {
@@ -33,12 +34,22 @@ function App() {
             </ProtectedRoute>
           }
         />
-        
+
         <Route
           path="/graph"
           element={
             <ProtectedRoute>
               <GraphVisualizer />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* New Graph RAG Dashboard */}
+        <Route
+          path="/graph-rag"
+          element={
+            <ProtectedRoute>
+              <GraphRagPage />
             </ProtectedRoute>
           }
         />
@@ -51,3 +62,4 @@ function App() {
 }
 
 export default App;
+

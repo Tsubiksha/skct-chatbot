@@ -107,24 +107,20 @@ export function postMessageStream(convId, content) {
 
 // --- GraphRAG / Admin Operations ---
 export function getGraphStats() {
-  return request("/api/graph-rag/stats").catch(() => request("/api/graph-rag/api/graph-rag/stats"));
+  return request("/api/graph-rag/stats");
 }
 
 export function getHealth() {
-  return request("/api/graph-rag/health").catch(() => request("/api/graph-rag/api/graph-rag/health"));
+  return request("/health");
 }
 
 export function triggerScrape({ forceReindex = false, maxPages = 30, maxDepth = 2 }) {
-  const body = JSON.stringify({ force_reindex: forceReindex, max_pages: maxPages, max_depth: maxDepth });
   return request("/api/graph-rag/scrape-website", {
     method: "POST",
-    body
-  }).catch(() => request("/api/graph-rag/api/graph-rag/scrape-website", {
-    method: "POST",
-    body
-  }));
+    body: JSON.stringify({ force_reindex: forceReindex, max_pages: maxPages, max_depth: maxDepth })
+  });
 }
 
 export function getGraphData() {
-  return request("/api/graph-rag/graph-data").catch(() => request("/api/graph-rag/api/graph-rag/graph-data"));
+  return request("/api/graph-rag/related");
 }

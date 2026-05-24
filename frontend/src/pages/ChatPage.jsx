@@ -553,8 +553,7 @@ function ThinkingBubble() {
 function cleanAnswerText(content = "") {
   const lines = String(content)
     .split(/\r?\n/)
-    .map((line) => line.trim())
-    .filter(Boolean);
+    .map((line) => line.trimEnd());
 
   const answerLines = [];
   for (const line of lines) {
@@ -562,13 +561,11 @@ function cleanAnswerText(content = "") {
     if (/^[-*]?\s*https?:\/\//i.test(line)) continue;
     const cleaned = line
       .replace(/^(?:🎓|📍)?\s*answer:\s*/i, "")
-      .replace(/^[-*]\s*/, "")
-      .trim();
-    if (cleaned) answerLines.push(cleaned);
-    if (answerLines.length >= 8) break;
+      .trimEnd();
+    answerLines.push(cleaned);
   }
 
-  return answerLines.join("\n") || "I could not find a clean answer in the available SKCT knowledge base.";
+  return answerLines.join("\n").trim() || "I could not find a clean answer in the available SKCT knowledge base.";
 }
 
 function extractUrlSources(content = "") {

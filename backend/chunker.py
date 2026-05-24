@@ -3,7 +3,7 @@ import uuid
 from typing import List, Dict, Any
 
 class SemanticChunker:
-    def __init__(self, chunk_size: int = 1500, overlap: int = 250):
+    def __init__(self, chunk_size: int = 550, overlap: int = 100):
         self.chunk_size = chunk_size
         self.overlap = overlap
 
